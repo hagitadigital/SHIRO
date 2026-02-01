@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calm Intelligence | הטכנולוגיה שמבינה אותך</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;600&family=Frank+Ruhl+Libre:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --charcoal: #1a1816;
+      --charcoal-light: #252220;
+      --warm-beige: #e8dfd0;
+      --champagne: #d4af7a;
+      --champagne-light: #e8c9a0;
+      --amber-glow: rgba(212, 175, 125, 0.4);
+      --text-primary: #f5f0e8;
+      --text-secondary: rgba(220, 210, 195, 0.7);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--charcoal);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 25px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, rgba(26, 24, 22, 0.95) 0%, transparent 100%);
+      transition: all 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(26, 24, 22, 0.98);
+      backdrop-filter: blur(20px);
+      padding: 18px 60px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-sphere {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at 30% 30%, #3a3835 0%, #1a1918 60%, #0d0c0c 100%);
+      box-shadow: 0 0 20px rgba(212, 175, 125, 0.3);
+    }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: 300;
+      letter-spacing: 3px;
+      color: var(--champagne-light);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 45px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--champagne);
+    }
+
+    .nav-cta {
+      padding: 12px 28px;
+      background: transparent;
+      border: 1px solid rgba(212, 175, 125, 0.4);
+      color: var(--champagne-light);
+      font-family: 'Heebo', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      background: rgba(212, 175, 125, 0.15);
+      border-color: var(--champagne);
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+
+    .hero-image-fallback {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(26, 24, 22, 0.4) 0%,
+        rgba(26, 24, 22, 0.2) 40%,
+        rgba(26, 24, 22, 0.6) 80%,
+        rgba(26, 24, 22, 1) 100%
+      );
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 40px;
+    }
+
+    .hero-tagline {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: clamp(42px, 6vw, 72px);
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--champagne-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 50px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 18px 45px;
+      background: linear-gradient(135deg, var(--champagne) 0%, #c9a060 100%);
+      border: none;
+      color: var(--charcoal);
+      font-family: 'Heebo', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 35px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 40px rgba(212, 175, 125, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 50px rgba(212, 175, 125, 0.4);
+    }
+
+    .btn-secondary {
+      padding: 18px 45px;
+      background: transparent;
+      border: 1px solid rgba(212, 175, 125, 0.5);
+      color: var(--champagne-light);
+      font-family: 'Heebo', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      border-radius: 35px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(212, 175, 125, 0.1);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-secondary);
+      font-size: 12px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--champagne), transparent);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* Philosophy Section */
+    .philosophy {
+      padding: 150px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .philosophy-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(ellipse, rgba(212, 175, 125, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .philosophy-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .philosophy-text h2 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 48px;
+      font-weight: 300;
+      margin-bottom: 35px;
+      line-height: 1.3;
+    }
+
+    .philosophy-text h2 span {
+      color: var(--champagne);
+    }
+
+    .philosophy-text p {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-bottom: 25px;
+      line-height: 1.9;
+    }
+
+    .philosophy-image {
+      position: relative;
+    }
+
+    .philosophy-image img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+    }
+
+    .philosophy-image::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 100%;
+      height: 100%;
+      border: 1px solid rgba(212, 175, 125, 0.2);
+      border-radius: 20px;
+      z-index: -1;
+    }
+
+    /* Core Product Section */
+    .core-product {
+      padding: 150px 60px;
+      background: linear-gradient(180deg, var(--charcoal) 0%, var(--charcoal-light) 50%, var(--charcoal) 100%);
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 100px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      color: var(--champagne);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 44px;
+      font-weight: 300;
+      margin-bottom: 25px;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--text-secondary);
+    }
+
+    .core-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 100px;
+      position: relative;
+    }
+
+    .core-image {
+      max-width: 900px;
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 60px 120px rgba(0, 0, 0, 0.5);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, rgba(45, 42, 38, 0.6) 0%, rgba(35, 32, 28, 0.8) 100%);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 45px 35px;
+      border: 1px solid rgba(212, 175, 125, 0.1);
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(212, 175, 125, 0.25);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(212, 175, 125, 0.2) 0%, rgba(212, 175, 125, 0.05) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      font-size: 24px;
+    }
+
+    .feature-card h3 {
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 15px;
+    }
+
+    .feature-card p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* Use Cases Section */
+    .use-cases {
+      padding: 150px 60px;
+    }
+
+    .use-case {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto 150px;
+    }
+
+    .use-case:last-child {
+      margin-bottom: 0;
+    }
+
+    .use-case.reverse {
+      direction: ltr;
+    }
+
+    .use-case.reverse .use-case-content {
+      direction: rtl;
+    }
+
+    .use-case-image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+    }
+
+    .use-case-image img {
+      width: 100%;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .use-case-image:hover img {
+      transform: scale(1.03);
+    }
+
+    .use-case-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(26, 24, 22, 0.3) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .use-case-content {
+      padding: 20px 0;
+    }
+
+    .use-case-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: var(--champagne);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .use-case-content h3 {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 38px;
+      font-weight: 300;
+      margin-bottom: 25px;
+      line-height: 1.3;
+    }
+
+    .use-case-content p {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-bottom: 35px;
+      line-height: 1.9;
+    }
+
+    .use-case-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .use-case-feature {
+      padding: 10px 20px;
+      background: rgba(212, 175, 125, 0.1);
+      border: 1px solid rgba(212, 175, 125, 0.2);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--champagne-light);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 180px 60px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .cta-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 1000px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(212, 175, 125, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-family: 'Frank Ruhl Libre', serif;
+      font-size: 52px;
+      font-weight: 300;
+      margin-bottom: 30px;
+      line-height: 1.3;
+    }
+
+    .cta-subtitle {
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      margin-bottom: 50px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 80px 60px;
+      border-top: 1px solid rgba(212, 175, 125, 0.1);
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-logo .logo-sphere {
+      width: 28px;
+      height: 28px;
+    }
+
+    .footer-logo .logo-text {
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--champagne);
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 300;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .philosophy-content,
+      .use-case {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+
+      .use-case.reverse {
+        direction: rtl;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        padding: 20px 30px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-tagline {
+        font-size: 36px;
+      }
+
+      .section-title,
+      .philosophy-text h2 {
+        font-size: 32px;
+      }
+
+      .use-case-content h3 {
+        font-size: 28px;
+      }
+
+      .cta-title {
+        font-size: 36px;
+      }
+
+      .philosophy,
+      .core-product,
+      .use-cases,
+      .cta-section {
+        padding: 100px 30px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="logo">
+      <div class="logo-sphere"></div>
+      <span class="logo-text">CALM</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#philosophy">הפילוסופיה</a></li>
+      <li><a href="#product">המוצר</a></li>
+      <li><a href="#spaces">המרחבים</a></li>
+      <li><a href="#contact">יצירת קשר</a></li>
+    </ul>
+    <button class="nav-cta">הזמינו הדגמה</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-video-container">
+      <!-- Option 1: Use video (uncomment and add your video file) -->
+      <!-- <video class="hero-video" autoplay muted loop playsinline>
+        <source src="video/your-video.mp4" type="video/mp4">
+      </video> -->
+      
+      <!-- Option 2: Use image as fallback -->
+      <img class="hero-image-fallback" src="images/car-exterior.png" alt="Calm Intelligence">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-tagline">הטכנולוגיה שמבינה אותך.<br>מבלי להפריע.</h1>
+      <p class="hero-subtitle">גלו את Calm Intelligence — מערכת בית חכם שלא דורשת ממכם שום דבר. היא פשוט יודעת.</p>
+      <div class="hero-cta-group">
+        <button class="btn-primary">גלו את החוויה</button>
+        <button class="btn-secondary">צפו בסרטון</button>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>גללו למטה</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Philosophy Section -->
+  <section class="philosophy" id="philosophy">
+    <div class="philosophy-glow"></div>
+    <div class="philosophy-content">
+      <div class="philosophy-text">
+        <h2>רוב הטכנולוגיה <span>צועקת</span>.<br>שלנו <span>לוחשת</span>.</h2>
+        <p>עשרות שנים, חברות טכנולוגיה התחרו על תשומת הלב שלכם. מסכים בוהקים, התראות אינסופיות, ממשקים עמוסים שדורשים מכם ללמוד שפה חדשה.</p>
+        <p>אנחנו בחרנו בדרך אחרת. יצרנו טכנולוגיה שנעלמת לתוך החיים שלכם. שעוטפת אתכם בחוויה, בלי לפלוש למרחב האישי שלכם.</p>
+        <p>זו לא בינה מלאכותית. זו <strong>אינטליגנציה שקטה</strong>.</p>
+      </div>
+      <div class="philosophy-image">
+        <img src="images/sphere-glow.png" alt="הליבה - הכדור השחור עם גלי אור זהובים">
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Product Section -->
+  <section class="core-product" id="product">
+    <div class="section-header">
+      <p class="section-label">הליבה</p>
+      <h2 class="section-title">כדור אחד. עולם שלם.</h2>
+      <p class="section-subtitle">הכדור השחור הוא הלב של המערכת. הוא לא סתם רכיב — הוא נוכחות. שקטה, חמה, ותמיד שם בשבילכם.</p>
+    </div>
+    
+    <div class="core-visual">
+      <img class="core-image" src="images/living-room.png" alt="הכדור בסלון יוקרתי">
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">◐</div>
+        <h3>מודעות להקשר</h3>
+        <p>המערכת יודעת אם זה בוקר או ערב, אם אתם בבית או ברכב. היא מציגה רק מה שרלוונטי — עכשיו.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✦</div>
+        <h3>ממשק מרחף</h3>
+        <p>מידע שצף באוויר כמו הולוגרמה חמה. בלי מסכים קרים, בלי כפתורים נוקשים. רק אור ואינטואיציה.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">◉</div>
+        <h3>דופק חי</h3>
+        <p>הכדור "נושם" באור עדין שמשתנה לפי הפעילות. כשהוא פעיל — הוא זוהר. כשאתם רגועים — גם הוא.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Use Cases Section -->
+  <section class="use-cases" id="spaces">
+    <div class="section-header">
+      <p class="section-label">המרחבים</p>
+      <h2 class="section-title">בכל מקום. באותה שפה.</h2>
+      <p class="section-subtitle">מהבית לרכב, מהמשרד למלון — החוויה עוקבת אחריכם בצורה חלקה.</p>
+    </div>
+
+    <!-- Use Case 1: Home -->
+    <div class="use-case">
+      <div class="use-case-image">
+        <img src="images/living-room.png" alt="הבית החכם">
+      </div>
+      <div class="use-case-content">
+        <p class="use-case-label">הבית</p>
+        <h3>המקום שמכיר אתכם הכי טוב</h3>
+        <p>כשאתם מתעוררים, התאורה כבר התאימה את עצמה. הקפה מוכן. הטמפרטורה מושלמת. בלי שהייתם צריכים לומר מילה אחת.</p>
+        <div class="use-case-features">
+          <span class="use-case-feature">תרחישי בוקר וערב</span>
+          <span class="use-case-feature">בקרת אקלים</span>
+          <span class="use-case-feature">תאורה אדפטיבית</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Use Case 2: Car -->
+    <div class="use-case reverse">
+      <div class="use-case-image">
+        <img src="images/car-interior.png" alt="החוויה ברכב">
+      </div>
+      <div class="use-case-content">
+        <p class="use-case-label">הרכב</p>
+        <h3>הדרך הופכת לחלק מהחוויה</h3>
+        <p>ברגע שאתם עולים לרכב, הכל כבר שם: הניווט, המוזיקה, הטמפרטורה. המידע מרחף לפניכם — מבלי להסיח את דעתכם מהכביש.</p>
+        <div class="use-case-features">
+          <span class="use-case-feature">HUD הולוגרפי</span>
+          <span class="use-case-feature">סנכרון אוטומטי</span>
+          <span class="use-case-feature">הכנת רכב מרחוק</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Use Case 3: Office -->
+    <div class="use-case">
+      <div class="use-case-image">
+        <img src="images/office-hologram.png" alt="חדר הישיבות">
+      </div>
+      <div class="use-case-content">
+        <p class="use-case-label">המשרד</p>
+        <h3>פגישות שמרגישות כמו קסם</h3>
+        <p>הדמיות תלת-ממדיות שצפות מעל שולחן הישיבות. מצגות שהופכות לחוויה. טכנולוגיה שגורמת לאנשים להקשיב — לא להסתכל על המסך.</p>
+        <div class="use-case-features">
+          <span class="use-case-feature">הולוגרמות 3D</span>
+          <span class="use-case-feature">מצב פוקוס</span>
+          <span class="use-case-feature">ניהול פגישות</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Use Case 4: Hospitality -->
+    <div class="use-case reverse">
+      <div class="use-case-image">
+        <img src="images/hotel-lobby.png" alt="לובי המלון">
+      </div>
+      <div class="use-case-content">
+        <p class="use-case-label">האירוח</p>
+        <h3>חוויית אורח שלא תשכחו</h3>
+        <p>מלונות ובוטיקים שמשתמשים ב-Calm Intelligence יוצרים רושם ראשוני בלתי נשכח. צ'ק-אין ללא מגע, ניווט אינטואיטיבי, והתאמה אישית מרגע הכניסה.</p>
+        <div class="use-case-features">
+          <span class="use-case-feature">צ'ק-אין חכם</span>
+          <span class="use-case-feature">ניווט במתחם</span>
+          <span class="use-case-feature">העדפות אישיות</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="contact">
+    <div class="cta-glow"></div>
+    <div class="cta-content">
+      <h2 class="cta-title">מוכנים לחוות את העתיד?</h2>
+      <p class="cta-subtitle">הצטרפו לרשימת ההמתנה וקבלו גישה מוקדמת להדגמה אישית במרחב שלכם.</p>
+      <div class="hero-cta-group">
+        <button class="btn-primary">הצטרפו לרשימת ההמתנה</button>
+        <button class="btn-secondary">דברו איתנו</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <div class="logo-sphere"></div>
+        <span class="logo-text">CALM INTELLIGENCE</span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="#">אודות</a></li>
+        <li><a href="#">למשקיעים</a></li>
+        <li><a href="#">קריירה</a></li>
+        <li><a href="#">תנאי שימוש</a></li>
+        <li><a href="#">פרטיות</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 Calm Intelligence. כל הזכויות שמורות.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth reveal on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.use-case, .feature-card, .philosophy-content').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
